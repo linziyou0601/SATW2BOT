@@ -133,8 +133,8 @@ def get_event_obj(event):
         "lineMessage": "",                              #取得收到的訊息
         "lineMessageType": event.message.type if hasattr(event, 'message') else None,
         "account": channelData['account'],
-        "allow_draw": True if (datetime.now() - LAST_DRAW).seconds >= 864000 and channelData['bind'] else False, #已綁定且大於24小時
-        "bind": channelData['bind'],
+        "allow_draw": True if (datetime.now() - LAST_DRAW).days > 0 and channelData['bind']==1 else False, #已綁定且大於24小時
+        "bind": channelData['bind']==1,
         "mute": channelData['mute'],
         "global_talk": channelData['global_talk'],
         "replyList": [],                                #初始化傳送內容（可為List或單一Message Object）
