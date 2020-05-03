@@ -132,6 +132,7 @@ def get_event_obj(event):
         "userId": userId,
         "lineMessage": "",                              #取得收到的訊息
         "lineMessageType": event.message.type if hasattr(event, 'message') else None,
+        "nickname": profileName,
         "account": channelData['account'],
         "allow_draw": True if (datetime.now() - LAST_DRAW).days > 0 and channelData['bind']==1 else False, #已綁定且大於24小時
         "bind": channelData['bind']==1,
