@@ -1722,32 +1722,33 @@ def flexProducts(product_list, key):
                 }
             }
         )
-        ProductList.append(
-            {
-                "type": "bubble",
-                "body": {
-                    "type": "box",
-                    "layout": "vertical",
-                    "spacing": "sm",
-                    "contents": [
-                        {
-                            "type": "filler"
-                        },
-                        {
-                            "type": "button",
-                            "action": {
-                            "type": "uri",
-                            "label": "See More",
-                            "uri": "https://satw2.linziyou.nctu.me/products?key="+key
+        if len(product_list)>9:
+            ProductList.append(
+                {
+                    "type": "bubble",
+                    "body": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "spacing": "sm",
+                        "contents": [
+                            {
+                                "type": "filler"
+                            },
+                            {
+                                "type": "button",
+                                "action": {
+                                "type": "uri",
+                                "label": "See More",
+                                "uri": "https://satw2.linziyou.nctu.me/products?key="+key
+                                }
+                            },
+                            {
+                                "type": "filler"
                             }
-                        },
-                        {
-                            "type": "filler"
-                        }
-                    ]
+                        ]
+                    }
                 }
-            }
-        )
+            )
     
     #建立回傳物件
     return [key+"相關的商品", { "type": "carousel", "contents": ProductList }]
