@@ -27,6 +27,16 @@ def flexMainMenu(channelId):
             "text": "目前狀態"
             },
             "margin": "md"
+        },
+        {
+            "type": "button",
+            "height": "sm",
+            "action": {
+            "type": "uri",
+            "label": "去購物",
+            "uri": "https://satw2.linziyou.nctu.me/products"
+            },
+            "margin": "md"
         }
     ]
     if channelId[0]=='U':
