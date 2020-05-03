@@ -41,6 +41,12 @@ def get_channel(channelId):
     return dataRow[0] if len(dataRow) else None
 
 #綁定帳號
+def draw_coupon(channelId):
+    query = """UPDATE line_user SET draw_coupon = %s where channel_id = %s"""
+    values = (datetime.now(), channelId,)
+    operateDB(query, values)
+
+#綁定帳號
 def bind_account(channelId, account):
     query = """UPDATE line_user SET account = %s, bind = 1 where channel_id = %s"""
     values = (account, channelId,)

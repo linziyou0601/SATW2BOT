@@ -1715,7 +1715,7 @@ def flexProducts(product_list, key):
                         "action": {
                         "type": "uri",
                         "label": "Go to Buy",
-                        "uri": "https://satw2.linziyou.nctu.me/products/"+str(product['id'])
+                        "uri": "https://satw2.linziyou.nctu.me/products/"+str(int(product['id']))
                         }
                     }
                     ]
