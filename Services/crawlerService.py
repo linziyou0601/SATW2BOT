@@ -2,6 +2,7 @@
 from datetime import datetime, timedelta
 import os, sys, pytz, urllib.request, requests, csv, json, math
 import numpy as np
+from urllib.parse import quote
 
 #前往上層目錄
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) 
@@ -153,7 +154,9 @@ def draw_coupon():
 ## 查詢商品
 def getProducts(key=""):
     #=========================== 取得資料 [↓] ===========================#
-    with urllib.request.urlopen("https://satw2.linziyou.nctu.me/api/getProducts?key="+key) as url:
+    url = "https://satw2.linziyou.nctu.me/api/getProducts?key=" + str(key)
+    url = quote(url, safe=string.printable)
+    with urllib.request.urlopen(url) as url:
         obj = json.loads(url.read().decode())
         return obj
     #=========================== 取得資料 [↑] ===========================#
