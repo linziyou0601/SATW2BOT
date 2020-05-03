@@ -104,7 +104,7 @@ def flexMainMenu(channelId):
 
 ##你會做什麼
 def flexHowDo(channelId):
-    content = [flexTeachChat(), flexTeachMeteorology(), flexTeachLottery()]
+    content = [flexTeachInfinityShop(channelId), flexTeachChat(), flexTeachMeteorology(), flexTeachLottery()]
     return {
         "type": "carousel",
         "contents": content
@@ -1146,6 +1146,278 @@ def templateAnnouncement(title = '', content = '', date = ''):
 #                   爬蟲關鍵類                  #
 #==============================================#
 #==========教學==========#
+##INFINITY SHOP功能教學
+def flexTeachInfinityShop(channelId):
+    content = [
+        {
+            "type": "separator",
+            "margin": "sm"
+        },
+        {
+            "type": "button",
+            "style": "link",
+            "height": "sm",
+            "action": {
+            "type": "message",
+            "label": "怎麼查商品",
+            "text": "怎麼查商品"
+            }
+        }
+    ]
+    if channelId[0]=='U':
+        content += [
+            {
+                "type": "button",
+                "height": "sm",
+                "action": {
+                "type": "postback",
+                "label": "抽酷碰券",
+                "data": "action=draw_coupon"
+                },
+                "margin": "sm"
+            },
+            {
+                "type": "button",
+                "height": "sm",
+                "action": {
+                "type": "uri",
+                "label": "綁定INFINITY SHOP",
+                "uri": "https://satw2.linziyou.nctu.me/linebot/bind/"+channelId
+                },
+                "margin": "sm"
+            },
+            {
+                "type": "button",
+                "height": "sm",
+                "action": {
+                "type": "postback",
+                "label": "解除綁定",
+                "data": "action=unbind"
+                },
+                "margin": "sm",
+                "color": "#c7524c"
+            }
+        ]
+    content += [
+        {
+            "type": "button",
+            "style": "link",
+            "height": "sm",
+            "action": {
+            "type": "message",
+            "label": "主選單",
+            "text": "主選單"
+            },
+            "margin": "sm"
+        }
+    ]
+    return {
+        "type": "bubble",
+        "direction": "ltr",
+        "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+            {
+                "type": "text",
+                "text": "功能",
+                "color": "#1DB446",
+                "size": "sm",
+                "weight": "bold"
+            },
+            {
+                "type": "text",
+                "text": "INFINITY SHOP",
+                "margin": "md",
+                "size": "xxl",
+                "weight": "bold"
+            },
+            {
+                "type": "separator",
+                "margin": "lg"
+            },
+            {
+                "type": "text",
+                "text": "說明",
+                "size": "md",
+                "weight": "bold",
+                "color": "#825d5c",
+                "margin": "lg"
+            },
+            {
+                "type": "text",
+                "text": "本樹懶提供以下功能與INFINITY SHOP進行整合",
+                "color": "#AAAAAA",
+                "size": "sm",
+                "flex": 2,
+                "margin": "sm",
+                "wrap": True
+            }
+            ]
+        },
+        "footer": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": content
+        }
+    }
+
+##查商品教學
+def flexTeachProduct():
+    return {
+        "type": "bubble",
+        "direction": "ltr",
+        "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+            {
+                "type": "text",
+                "text": "教學",
+                "color": "#1DB446",
+                "size": "sm",
+                "weight": "bold"
+            },
+            {
+                "type": "text",
+                "text": "如何查商品",
+                "margin": "md",
+                "size": "xxl",
+                "weight": "bold"
+            },
+            {
+                "type": "separator",
+                "margin": "lg"
+            },
+            {
+                "type": "text",
+                "text": "舉例一（啟動詞）",
+                "size": "md",
+                "weight": "bold",
+                "color": "#825d5c",
+                "margin": "lg"
+            },
+            {
+                "type": "box",
+                "layout": "horizontal",
+                "margin": "sm",
+                "contents": [
+                {
+                    "type": "text",
+                    "text": "啟動詞：",
+                    "color": "#AAAAAA",
+                    "size": "sm",
+                    "flex": 2
+                },
+                {
+                    "type": "text",
+                    "text": "查詢商品、找商品...",
+                    "wrap": True,
+                    "flex": 6,
+                    "size": "sm",
+                    "color": "#825d5c"
+                }
+                ]
+            },
+            {
+                "type": "text",
+                "text": "啟動後，請依提示文字輸入想查詢的「位置資訊」。",
+                "color": "#AAAAAA",
+                "size": "sm",
+                "flex": 2,
+                "margin": "sm",
+                "wrap": True
+            },
+            {
+                "type": "separator",
+                "margin": "lg"
+            },
+            {
+                "type": "text",
+                "text": "舉例二（商品+啟動詞）",
+                "size": "md",
+                "weight": "bold",
+                "color": "#825d5c",
+                "margin": "lg"
+            },
+            {
+                "type": "box",
+                "layout": "horizontal",
+                "margin": "sm",
+                "contents": [
+                {
+                    "type": "text",
+                    "text": "例A：",
+                    "color": "#AAAAAA",
+                    "size": "sm",
+                    "flex": 1
+                },
+                {
+                    "type": "text",
+                    "text": "有沒有賣巧克力",
+                    "wrap": True,
+                    "flex": 4,
+                    "size": "sm",
+                    "color": "#825d5c"
+                }
+                ]
+            },
+            {
+                "type": "box",
+                "layout": "horizontal",
+                "margin": "sm",
+                "contents": [
+                {
+                    "type": "text",
+                    "text": "例B：",
+                    "color": "#AAAAAA",
+                    "size": "sm",
+                    "flex": 1
+                },
+                {
+                    "type": "text",
+                    "text": "有賣iPhone嗎",
+                    "wrap": True,
+                    "flex": 4,
+                    "size": "sm",
+                    "color": "#825d5c"
+                }
+                ]
+            }
+            ]
+        },
+        "footer": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+            {
+                "type": "separator",
+                "margin": "sm"
+            },
+            {
+                "type": "button",
+                "style": "link",
+                "height": "sm",
+                "action": {
+                "type": "message",
+                "label": "查詢商品",
+                "text": "查詢商品"
+                }
+            },
+            {
+                "type": "button",
+                "style": "link",
+                "height": "sm",
+                "action": {
+                "type": "message",
+                "label": "主選單",
+                "text": "主選單"
+                }
+            }
+            ]
+        }
+    }
+
 ##氣象功能教學
 def flexTeachMeteorology():
     return {

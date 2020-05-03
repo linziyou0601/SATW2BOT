@@ -387,6 +387,10 @@ def handle_message(event):
         GET_EVENT["replyList"] = FlexSendMessage(alt_text= "怎麼抽籤式回答", contents=flexTeachChatRandom())
         GET_EVENT["replyLog"] = [GET_EVENT["lineMessage"], 0, 'flex']
 
+    #查商品教學選單 [不限個人] 
+    elif key(GET_EVENT["lineMessage"])=="怎麼查商品": 
+        GET_EVENT["replyList"] = FlexSendMessage(alt_text= "怎麼查商品", contents=flexTeachProduct())
+        GET_EVENT["replyLog"] = [GET_EVENT["lineMessage"], 0, 'flex']
     #查氣象教學選單 [不限個人] 
     elif key(GET_EVENT["lineMessage"])=="怎麼查氣象": 
         GET_EVENT["replyList"] = FlexSendMessage(alt_text= "怎麼查氣象", contents=flexTeachMeteorology())
