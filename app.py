@@ -84,6 +84,15 @@ def getChannelId(event):
 def getUserId(event):
     return event.source.user_id if hasattr(event.source, 'user_id') else None
 
+####################[匯入]: [詞條]####################
+#匯入詞條
+@app.route("/importStatement", methods=['POST'])
+def importStatement():
+    data = json.loads(request.get_data())
+    for item in data["data"]:
+        create_statement(item["keyword"], item["response"], "autoLearn", "autoLearn")
+    return json.dumps({'msg': 'ok'})
+
 ####################[綁定, 查詢, 解除綁定]: [帳號]####################
 #綁定帳號
 @app.route("/binding", methods=['POST'])
@@ -124,7 +133,7 @@ def get_event_obj(event):
         "lineMessage": "",                              #取得收到的訊息
         "lineMessageType": event.message.type if hasattr(event, 'message') else None,
         "account": channelData['account'],
-        "allow_draw": True if (datetime.now() - LAST_DRAW).hour >= 24 else False, #已綁定或小於七日
+        "allow_draw": True if (datetime.now() - LAST_DRAW).seconds >= 864000 and channelData['bind'] else False, #已綁定且大於24小時
         "bind": channelData['bind'],
         "mute": channelData['mute'],
         "global_talk": channelData['global_talk'],
@@ -196,7 +205,7 @@ def handle_postback(event):
             coupon = draw_coupon()
             GET_EVENT["replyList"] = FlexSendMessage(alt_text = "酷碰券：折價"+str(coupon["discount"])+"元\n序號："+coupon["code"], contents = flexCoupon(coupon["code"], coupon["discount"]))
         else:
-            GET_EVENT["replyList"] = TextSendMessage(text="每24小時才能抽一次唷！"+GET_EVENT['postfix'])
+            GET_EVENT["replyList"] = TextSendMessage(text="需要綁定帳號，且每24小時才能抽一次唷！"+GET_EVENT['postfix'])
         
     ##確認詞條內容
     if data['action'][0]=='confirm_learn':
