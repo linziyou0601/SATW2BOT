@@ -275,7 +275,7 @@ def handle_message(event):
             this_key = re.sub("(商品查詢)", "", key(GET_EVENT["lineMessage"]))
             #若本語句中有直接給地點
             if this_key:
-                products = getProducts(None, None, this_key)
+                products = getProducts(this_key)
                 if products['status']=='successful':
                     flexObject = flexAQI(products['products'], this_key)
                     GET_EVENT["replyList"] = FlexSendMessage(alt_text = flexObject[0], contents = flexObject[1])
@@ -286,7 +286,7 @@ def handle_message(event):
                 GET_EVENT["replyLog"] = ["要查詢的商品是？", 0, 'flex']
         #若上語句中有問商品且沒給地點
         else:
-            products = getProducts(None, None, GET_EVENT["lineMessage"])
+            products = getProducts(GET_EVENT["lineMessage"])
             if products['status']=='successful':
                 flexObject = flexAQI(products['products'], GET_EVENT["lineMessage"])
                 GET_EVENT["replyList"] = FlexSendMessage(alt_text = flexObject[0], contents = flexObject[1])
