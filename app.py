@@ -97,7 +97,7 @@ def binding():
 def getChannelBind():
     data = json.loads(request.get_data())
     channel = get_channel(data['channel_id'])
-    return json.dumps({'bind': -1 if channel==None else 2 if data['channel_id'][0]!='U' else channel['bind']})
+    return json.dumps({'bind': "-1" if channel==None else "2" if data['channel_id'][0]!='U' else str(channel['bind'])})
 
 ####################取得EVENT物件、發送訊息####################
 def get_event_obj(event):
