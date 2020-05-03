@@ -115,6 +115,8 @@ def get_event_obj(event):
     try: profileName = line_bot_api.get_profile(userId).display_name if userId else ""
     except: profileName = ""
 
+    LAST_DRAW = userData['draw_coupon'] if userData else channelData['draw_coupon']
+
     return {
         "reply_token": event.reply_token,
         "channelId": channelId,
@@ -122,6 +124,7 @@ def get_event_obj(event):
         "lineMessage": "",                              #取得收到的訊息
         "lineMessageType": event.message.type if hasattr(event, 'message') else None,
         "account": channelData['account'],
+        "allow_draw": True if (datetime.now() - LAST_DRAW).hour >= 24 else False, #已綁定或小於七日
         "bind": channelData['bind'],
         "mute": channelData['mute'],
         "global_talk": channelData['global_talk'],
@@ -186,6 +189,15 @@ def handle_postback(event):
     if data['action'][0]=='check_unbind':
         unbind_account(GET_EVENT["channelId"])
         GET_EVENT["replyList"] = TextSendMessage(text="已解除綁定！"+GET_EVENT['postfix'])
+
+    ##抽碰酷券
+    if data['action'][0]=='draw_coupon':
+        if GET_EVENT["allow_draw"]:
+            coupon = draw_coupon()
+            GET_EVENT["replyList"] = FlexSendMessage(alt_text = "酷碰券：折價"+str(coupon["discount"])+"元\n序號："+coupon["code"], contents = flexCoupon(coupon["code"], coupon["discount"]))
+        else:
+            GET_EVENT["replyList"] = TextSendMessage(text="每24小時才能抽一次唷！"+GET_EVENT['postfix'])
+        
     ##確認詞條內容
     if data['action'][0]=='confirm_learn':
         temp_statement = get_temp_statement(data['id'][0])
@@ -247,6 +259,30 @@ def handle_message(event):
 
 
     ## ==================== 爬蟲查詢 ==================== ##
+    #商品查詢 [不限個人]    # 若上一句key值為「^(有(沒有)?賣)|((找|查(詢)?)?(商品|產品))|(有(沒有)?賣(嗎)?)$」且不為「^(有(沒有)?賣)+名稱+((找|查(詢)?)?(商品|產品))|(有(沒有)?賣(嗎)?)$」 或 本句key值為「^(有(沒有)?賣)+名稱+((找|查(詢)?)?(商品|產品))|(有(沒有)?賣(嗎)?)$」
+    elif any((re.search("(商品查詢)$", key(s['message'])) and not re.sub("(商品查詢)", "", key(s['message']))) for s in last_receives[0:1]) or re.search("(商品查詢)$", key(GET_EVENT["lineMessage"])):
+        #若本語句中有問商品
+        if re.search("(商品查詢)$", key(GET_EVENT["lineMessage"])):
+            this_key = re.sub("(商品查詢)", "", key(GET_EVENT["lineMessage"]))
+            #若本語句中有直接給地點
+            if this_key:
+                products = getProducts(None, None, this_key)
+                if products['status']=='successful':
+                    flexObject = flexAQI(products['products'], this_key)
+                    GET_EVENT["replyList"] = FlexSendMessage(alt_text = flexObject[0], contents = flexObject[1])
+                    GET_EVENT["replyLog"] = [flexObject[0], 0, 'flex']
+            #問關鍵字
+            else:
+                GET_EVENT["replyList"] = FlexSendMessage(alt_text = "請輸入要查詢的商品關鍵字", contents = flexTellMeProduct())
+                GET_EVENT["replyLog"] = ["要查詢的商品是？", 0, 'flex']
+        #若上語句中有問商品且沒給地點
+        else:
+            products = getProducts(None, None, GET_EVENT["lineMessage"])
+            if products['status']=='successful':
+                flexObject = flexAQI(products['products'], GET_EVENT["lineMessage"])
+                GET_EVENT["replyList"] = FlexSendMessage(alt_text = flexObject[0], contents = flexObject[1])
+                GET_EVENT["replyLog"] = [flexObject[0], 0, 'flex']
+
     #天氣查詢 [不限個人]    # 若上一句key值為「(目前天氣|未來天氣)$」且不為「地名(目前天氣|未來天氣)$」 或 本句key值為「(地名)*(目前天氣|未來天氣)$」
     elif any((re.search("(目前天氣|未來天氣)$", key(s['message'])) and not re.sub("(目前天氣|未來天氣)", "", key(s['message']))) for s in last_receives[0:1]) or re.search("(目前天氣|未來天氣)$", key(GET_EVENT["lineMessage"])):
         #若本語句中有問天氣

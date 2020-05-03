@@ -141,3 +141,19 @@ def getAQI(lat, lng, site):
         return disInfo
     return {}
     #=========================== 取得資料 [↑] ===========================#
+
+## 抽酷碰券
+def draw_coupon():
+    #=========================== 抽酷碰 [↓] ===========================#
+    with urllib.request.urlopen("https://satw2.linziyou.nctu.me/api/generateCoupon") as url:
+        obj = json.loads(url.read().decode())
+        return obj
+    #=========================== 抽酷碰 [↑] ===========================#
+
+## 查詢商品
+def getProducts(key=""):
+    #=========================== 取得資料 [↓] ===========================#
+    with urllib.request.urlopen("https://satw2.linziyou.nctu.me/api/getProducts?key="+key) as url:
+        obj = json.loads(url.read().decode())
+        return obj
+    #=========================== 取得資料 [↑] ===========================#

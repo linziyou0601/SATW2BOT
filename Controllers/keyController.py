@@ -30,6 +30,7 @@ regDict2 = {
     "學說話": "^(樹懶(醬)?)?學說話$",
     "壞壞": "^(樹懶(醬)?)?壞壞$",
     # [爬蟲查詢]
+    "商品查詢": "^(有(沒有)?賣)|((找|查(詢)?)?(商品|產品))|(有(沒有)?賣(嗎)?)$",
     "天氣查詢": "((查(詢)?)?天氣(怎樣|狀況|如何|查詢)?)|((會|有)下雨嗎)$",
     "空汙查詢": "(查(詢)?)?(空汙|空氣|[Aa][Qq][Ii]|[Pp][Mm]2\.5)(品質|怎樣|狀況|如何|查詢)?$",
     # [機率運勢]
@@ -50,8 +51,14 @@ def findReg1(msg):
 ##關鍵字類型（優先度：2）
 def findReg2(msg):
     for keyword in regDict2.keys():
+        # [爬蟲查詢] 商品查詢
+        if keyword=="商品查詢" and re.search(regDict2[keyword], msg): 
+            KEY = re.split(regDict2[keyword], msg)[0].replace("嗎","")
+            if not KEY: KEY = re.split(regDict2[keyword], msg)[::-1][0].replace("嗎","")
+            return KEY + "商品查詢"
+
         # [爬蟲查詢] 天氣查詢
-        if keyword=="天氣查詢" and re.search(regDict2[keyword], msg):
+        elif keyword=="天氣查詢" and re.search(regDict2[keyword], msg):
             PATTERN = '((今|明|後|大後)[早晚天]|[一下]週|[早晚]上|中午|凌晨|清晨|未來|目前|現在|即時)'
             KEY = re.split(regDict2[keyword], msg)[0].replace("查詢", "")
             site = re.split(PATTERN, KEY.replace("台","臺"))

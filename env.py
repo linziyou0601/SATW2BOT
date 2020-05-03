@@ -9,6 +9,7 @@ CONFIG = {
         id INT AUTO_INCREMENT PRIMARY KEY,
         channel_id TEXT NOT NULL COMMENT "頻道 ID",
         account TEXT COMMENT "網站帳號",
+        draw_coupon TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         bind TINYINT DEFAULT 0 COMMENT "0=未綁定, 1=已綁定",
         mute TINYINT DEFAULT 0 COMMENT "0=可以聊天, 1=安靜",
         global_talk TINYINT DEFAULT 1 COMMENT "0=這裡教的話, 1=所有人教的話",

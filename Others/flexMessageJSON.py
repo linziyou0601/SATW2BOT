@@ -15,7 +15,7 @@ def flexMainMenu(channelId):
             "action": {
             "type": "message",
             "label": "功能教學",
-            "text": "我會幹嘛"
+            "text": "樹懶會幹嘛"
             },
             "margin": "md"
         },
@@ -49,6 +49,17 @@ def flexMainMenu(channelId):
                 "type": "postback",
                 "label": "解除綁定",
                 "data": "action=unbind"
+                },
+                "margin": "md",
+                "color": "#c7524c"
+            },
+            {
+                "type": "button",
+                "height": "sm",
+                "action": {
+                "type": "postback",
+                "label": "抽酷碰券",
+                "data": "action=draw_coupon"
                 },
                 "margin": "md",
                 "color": "#c7524c"
@@ -157,6 +168,73 @@ def flexStatusMenu(object):
         }
     ]
 
+
+def flexCoupon(code, discount):
+    return {
+        "type": "bubble",
+        "direction": "ltr",
+        "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+            {
+                "type": "text",
+                "text": "INFINITY SHOP",
+                "color": "#EDEDED",
+                "size": "sm",
+                "align": "center",
+                "weight": "bold"
+            },
+            {
+                "type": "text",
+                "text": "折扣 "+str(discount)+" 元",
+                "size": "xxl",
+                "weight": "bold",
+                "color": "#FFFFFF",
+                "align": "center"
+            }
+            ],
+            "paddingTop": "20px",
+            "paddingBottom": "20px"
+        },
+        "footer": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+            {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                {
+                    "type": "text",
+                    "text": code,
+                    "size": "md",
+                    "color": "#146881",
+                    "align": "center",
+                    "margin": "md",
+                    "weight": "bold"
+                }
+                ],
+                "backgroundColor": "#f0fdff",
+                "cornerRadius": "10px",
+                "paddingTop": "10px",
+                "paddingBottom": "10px"
+            }
+            ],
+            "paddingTop": "20px",
+            "paddingBottom": "20px",
+            "paddingStart": "25px",
+            "paddingEnd": "25px"
+        },
+        "styles": {
+            "body": {
+            "backgroundColor": "#17b1cb"
+            },
+            "footer": {
+            "backgroundColor": "#149cb2"
+            }
+        }
+    }
 
 #==============================================#
 #                     綁定類                    #
@@ -1511,6 +1589,169 @@ def flexTeachAQI():
     }
 
 #==========功能==========#
+##告訴我商品
+def flexTellMeProduct():
+    return {
+        "type": "bubble",
+        "size": "kilo",
+        "direction": "ltr",
+        "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+            {
+                "type": "text",
+                "text": "查詢商品",
+                "color": "#1DB446",
+                "size": "sm",
+                "weight": "bold"
+            },
+            {
+                "type": "text",
+                "text": "要查詢的商品是？",
+                "margin": "md",
+                "size": "xl",
+                "weight": "bold",
+                "wrap": True
+            },
+            {
+                "type": "separator",
+                "margin": "md"
+            },
+            {
+                "type": "text",
+                "text": "註：每次最多顯示9筆資料",
+                "margin": "md",
+                "size": "sm",
+                "wrap": True,
+                "color": "#999999"
+            }
+            ]
+        }
+    }
+
+##查詢商品
+def flexProducts(product_list, key):
+    #整理資料格式
+    ProductList=[]
+    for product in product_list[0:9]:
+        ProductList.append(
+            {
+                "type": "bubble",
+                "hero": {
+                    "type": "image",
+                    "size": "full",
+                    "url": "https://satw2.linziyou.nctu.me"+product['imgs'],
+                    "aspectMode": "cover",
+                    "aspectRatio": "1:1"
+                },
+                "body": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "spacing": "sm",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": product['title'],
+                        "wrap": True,
+                        "weight": "bold",
+                        "size": "xl"
+                    },
+                    {
+                        "type": "box",
+                        "layout": "baseline",
+                        "contents": [
+                        {
+                            "type": "text",
+                            "text": "$　",
+                            "wrap": True,
+                            "weight": "bold",
+                            "size": "sm",
+                            "flex": 0
+                        },
+                        {
+                            "type": "text",
+                            "text": str(product['price']),
+                            "wrap": True,
+                            "weight": "bold",
+                            "size": "xl",
+                            "flex": 0,
+                            "color": "#bf0433"
+                        }
+                        ]
+                    },
+                    {
+                        "type": "box",
+                        "layout": "baseline",
+                        "contents": [
+                        {
+                            "type": "text",
+                            "text": "stock　",
+                            "wrap": True,
+                            "weight": "bold",
+                            "size": "sm",
+                            "flex": 0
+                        },
+                        {
+                            "type": "text",
+                            "text": str(product['stockQty']),
+                            "wrap": True,
+                            "weight": "bold",
+                            "size": "xl",
+                            "flex": 0
+                        }
+                        ]
+                    }
+                    ]
+                },
+                "footer": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "spacing": "sm",
+                    "contents": [
+                    {
+                        "type": "button",
+                        "style": "primary",
+                        "action": {
+                        "type": "uri",
+                        "label": "Go to Buy",
+                        "uri": "https://satw2.linziyou.nctu.me/products/"+str(product['id'])
+                        }
+                    }
+                    ]
+                }
+            }
+        )
+        ProductList.append(
+            {
+                "type": "bubble",
+                "body": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "spacing": "sm",
+                    "contents": [
+                        {
+                            "type": "filler"
+                        },
+                        {
+                            "type": "button",
+                            "action": {
+                            "type": "uri",
+                            "label": "See More",
+                            "uri": "https://satw2.linziyou.nctu.me/products?key="+key
+                            }
+                        },
+                        {
+                            "type": "filler"
+                        }
+                    ]
+                }
+            }
+        )
+    
+    #建立回傳物件
+    return [key+"相關的商品", { "type": "carousel", "contents": ProductList }]
+
 ##告訴我位置
 def flexTellMeLocation():
     return {
