@@ -1749,7 +1749,7 @@ def flexProducts(product_list, key):
                 }
             )
         if len(product_list)==0:
-            ProductList.append(
+            ProductList = [
                 {
                     "type": "bubble",
                     "body": {
@@ -1773,7 +1773,7 @@ def flexProducts(product_list, key):
                         ]
                     }
                 }
-            )
+            ]
     
     #建立回傳物件
     return [key+"相關的商品", { "type": "carousel", "contents": ProductList }]
