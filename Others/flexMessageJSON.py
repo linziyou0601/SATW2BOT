@@ -1942,7 +1942,7 @@ def flexProducts(product_list, key):
                         },
                         {
                             "type": "text",
-                            "text": str(product['price']),
+                            "text": str(int(product['price'])),
                             "wrap": True,
                             "weight": "bold",
                             "size": "xl",
@@ -1965,7 +1965,7 @@ def flexProducts(product_list, key):
                         },
                         {
                             "type": "text",
-                            "text": str(product['stockQty']),
+                            "text": str(int(product['stockQty'])),
                             "wrap": True,
                             "weight": "bold",
                             "size": "xl",
