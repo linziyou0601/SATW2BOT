@@ -203,7 +203,7 @@ def handle_postback(event):
     if data['action'][0]=='draw_coupon':
         if GET_EVENT["allow_draw"]:
             coupon = draw_coupon()
-            draw_coupon(GET_EVENT["channelId"])
+            update_draw_time(GET_EVENT["channelId"])
             GET_EVENT["replyList"] = FlexSendMessage(alt_text = "酷碰券：折價"+str(coupon["discount"])+"元\n序號："+coupon["code"], contents = flexCoupon(coupon["code"], coupon["discount"]))
         else:
             GET_EVENT["replyList"] = TextSendMessage(text="需要綁定帳號，且每24小時才能抽一次唷！"+GET_EVENT['postfix'])

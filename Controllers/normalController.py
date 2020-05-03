@@ -40,8 +40,8 @@ def get_channel(channelId):
     dataRow = selectDB(query, values)
     return dataRow[0] if len(dataRow) else None
 
-#綁定帳號
-def draw_coupon(channelId):
+#更新抽取時間
+def update_draw_time(channelId):
     query = """UPDATE line_user SET draw_coupon = %s where channel_id = %s"""
     values = (datetime.now(), channelId,)
     operateDB(query, values)
