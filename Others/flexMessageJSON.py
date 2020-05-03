@@ -10,7 +10,6 @@ def flexMainMenu(channelId):
         },
         {
             "type": "button",
-            "style": "link",
             "height": "sm",
             "action": {
             "type": "message",
