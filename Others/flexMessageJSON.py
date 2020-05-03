@@ -36,6 +36,16 @@ def flexMainMenu(channelId):
                 "type": "button",
                 "height": "sm",
                 "action": {
+                "type": "postback",
+                "label": "抽酷碰券",
+                "data": "action=draw_coupon"
+                },
+                "margin": "md"
+            },
+            {
+                "type": "button",
+                "height": "sm",
+                "action": {
                 "type": "uri",
                 "label": "綁定INFINITY SHOP",
                 "uri": "https://satw2.linziyou.nctu.me/linebot/bind/"+channelId
@@ -49,17 +59,6 @@ def flexMainMenu(channelId):
                 "type": "postback",
                 "label": "解除綁定",
                 "data": "action=unbind"
-                },
-                "margin": "md",
-                "color": "#c7524c"
-            },
-            {
-                "type": "button",
-                "height": "sm",
-                "action": {
-                "type": "postback",
-                "label": "抽酷碰券",
-                "data": "action=draw_coupon"
                 },
                 "margin": "md",
                 "color": "#c7524c"
