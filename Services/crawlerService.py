@@ -1,8 +1,8 @@
 ##########爬蟲、資料取得##########
 from datetime import datetime, timedelta
-import os, sys, pytz, urllib.request, requests, csv, json, math
-import numpy as np
 from urllib.parse import quote
+import os, sys, pytz, urllib.request, requests, csv, json, math, string
+import numpy as np
 
 #前往上層目錄
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) 
