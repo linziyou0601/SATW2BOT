@@ -277,7 +277,7 @@ def handle_message(event):
             if this_key:
                 products = getProducts(this_key)
                 if products['status']=='successful':
-                    flexObject = flexAQI(products['products'], this_key)
+                    flexObject = flexProducts(products['products'], this_key)
                     GET_EVENT["replyList"] = FlexSendMessage(alt_text = flexObject[0], contents = flexObject[1])
                     GET_EVENT["replyLog"] = [flexObject[0], 0, 'flex']
             #問關鍵字
@@ -288,7 +288,7 @@ def handle_message(event):
         else:
             products = getProducts(GET_EVENT["lineMessage"])
             if products['status']=='successful':
-                flexObject = flexAQI(products['products'], GET_EVENT["lineMessage"])
+                flexObject = flexProducts(products['products'], GET_EVENT["lineMessage"])
                 GET_EVENT["replyList"] = FlexSendMessage(alt_text = flexObject[0], contents = flexObject[1])
                 GET_EVENT["replyLog"] = [flexObject[0], 0, 'flex']
 
