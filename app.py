@@ -170,7 +170,7 @@ def handle_join(event):
     GET_EVENT = get_event_obj(event)
     flexObject = flexStatusMenu(current_status(GET_EVENT))
     GET_EVENT["replyList"] = [
-        TextSendMessage(text="大家安安，我是INFINITY SHOP服務員，熊貓醬" + sticon(u"\U00100097")),
+        TextSendMessage(text="大家安安，我是INFINITY SHOP服務員，樹懶醬" + sticon(u"\U00100097")),
         FlexSendMessage(alt_text = "主選單", contents = flexMainMenu(GET_EVENT["channelId"])),
         FlexSendMessage(alt_text = flexObject[0], contents = flexObject[1])
     ]
