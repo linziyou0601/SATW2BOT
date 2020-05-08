@@ -848,10 +848,8 @@ def flexTeachChatRandom():
 def flexWhatCanSay(object):
     #整理資料格式
     keywordObj=[]
-    rslString=""
     if object["resData"]:
         for k, v in object["resData"].items():
-            rslString = rslString + k + ' ↓\n' + '\n'.join(v) + '\n----------\n'
             if len(keywordObj): keywordObj.append({ "type": "separator", "margin": "md" })
             keywordObj.append(
                 {
@@ -870,7 +868,7 @@ def flexWhatCanSay(object):
     if not len(keywordObj): keywordObj.append({ "type": "filler" })
     #建立容器
     return [
-        object["nickname"]+"教我說的話：\n" + rslString, 
+        object["nickname"]+"教我說的話如下：\n", 
         {
             "type": "bubble", "direction": "ltr",
             "body": {
