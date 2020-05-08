@@ -236,7 +236,7 @@ def chat_response(lineMessage, channelId):
     firstIndex = 0 if not rand else 2
     response = get_statement_response(lineMessage[firstIndex:], channelId, rand)
     valid = 0 if response=="我聽不懂啦！" else 2
-    type = 'image' if response[0:8]=='https://' and any(x in response for x in ['.jpg','.jpeg','.png']) else 'text'
+    type = 'image' if response[0:8]=='https://' and any(x in str.lower(response) for x in ['.jpg','.jpeg','.png']) else 'text'
     return [response, valid, type]
 ##成功回話時增加權重或加入新詞
 def chat_valid_reply(lineMessage, reply):
