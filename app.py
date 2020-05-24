@@ -113,7 +113,7 @@ def getChannelBind():
 def getChannelId():
     data = json.loads(request.get_data())
     channel = get_channel_by_account(data['account'])
-    return json.dumps({'channelId': "none" if channel==None else data['channel_id']})
+    return json.dumps({'channelId': "none" if channel==None else channel['channel_id']})
 
 ####################取得EVENT物件、發送訊息####################
 def get_event_obj(event):
