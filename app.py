@@ -110,7 +110,7 @@ def getChannelBind():
 
 #取得狀態 #-1查不到,0未綁,1已綁,2非個人Channel
 @app.route("/getChannelId", methods=['POST'])
-def getChannelId():
+def getChannelIdFronAccount():
     data = json.loads(request.get_data())
     channel = get_channel_by_account(data['account'])
     return json.dumps({'channelId': "none" if channel==None else channel['channel_id']})
@@ -228,6 +228,19 @@ def handle_postback(event):
         if temp_statement:
             delete_temp_statement(data['id'][0])
             GET_EVENT["replyList"] = TextSendMessage(text="已放棄新增～"+GET_EVENT['postfix'])
+
+    ##詞條有幫助
+    if data['action'][0]=='valid_response':
+        temp_statement = get_temp_statement(data['id'][0])
+        if temp_statement:
+            chat_valid_reply(temp_statement['keyword'], temp_statement['response'])
+            GET_EVENT["replyList"] = TextSendMessage(text="感謝您的回饋～"+GET_EVENT['postfix'])
+    ##詞條無幫助
+    if data['action'][0]=='refuse_response':
+        temp_statement = get_temp_statement(data['id'][0])
+        if temp_statement:
+            delete_temp_statement(data['id'][0])
+            GET_EVENT["replyList"] = TextSendMessage(text="感謝您的回饋～"+GET_EVENT['postfix'])
     
     ##傳送地點內容
     if data['action'][0]=='get_map':
@@ -441,6 +454,9 @@ def handle_message(event):
             GET_EVENT["replyList"] = ImageSendMessage(original_content_url=GET_EVENT["replyLog"][0], preview_image_url=GET_EVENT["replyLog"][0])
         else:
             GET_EVENT["replyList"] = TextSendMessage(text=GET_EVENT["replyLog"][0]+GET_EVENT["postfix"]) if GET_EVENT["replyLog"][0]!='我聽不懂啦！' or GET_EVENT["channelId"][0]=='U' else []
+            if(GET_EVENT["replyLog"][1]==2):
+                temp_id = create_temp_statement(GET_EVENT["lineMessage"], GET_EVENT["replyLog"][0], "", "")
+                GET_EVENT["replyList"] = FlexSendMessage(alt_text=GET_EVENT["replyLog"][0]+GET_EVENT["postfix"], contents=flexResponse(GET_EVENT["replyLog"][0]+GET_EVENT["postfix"], temp_id))
 
     ##自動學習
     auto_learn_model(GET_EVENT)

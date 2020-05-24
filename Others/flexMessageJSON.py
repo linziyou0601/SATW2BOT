@@ -316,6 +316,92 @@ def flexCheckUnbind(channelId):
 #==============================================#
 #                     聊天類                    #
 #==============================================#
+#==========回應==========#
+def flexResponse(res, id):
+    return {
+        "type": "carousel",
+        "contents": [
+            {
+            "type": "bubble",
+            "direction": "ltr",
+            "body": {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                {
+                    "type": "text",
+                    "text": "回應",
+                    "color": "#1DB446",
+                    "size": "sm",
+                    "weight": "bold"
+                },
+                {
+                    "type": "text",
+                    "text": str(res),
+                    "margin": "lg",
+                    "size": "md",
+                    "align": "start",
+                    "wrap": True
+                }
+                ]
+            },
+            "size": "mega"
+            },
+            {
+            "type": "bubble",
+            "size": "mega",
+            "body": {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                {
+                    "type": "text",
+                    "text": "這則回應對你有幫助嗎？",
+                    "margin": "lg",
+                    "color": "#666666",
+                    "size": "sm",
+                    "align": "start",
+                    "wrap": True
+                },
+                {
+                    "type": "separator",
+                    "margin": "lg"
+                },
+                {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                    {
+                        "type": "button",
+                        "action": {
+                        "type": "postback",
+                        "label": "是",
+                        "data": "action=valid_response&id="+str(id)
+                        },
+                        "color": "#209799",
+                        "style": "primary",
+                        "margin": "md"
+                    },
+                    {
+                        "type": "button",
+                        "action": {
+                        "type": "postback",
+                        "label": "否",
+                        "data": "action=refuse_response&id="+str(id)
+                        },
+                        "color": "#ba5145",
+                        "style": "primary",
+                        "margin": "md"
+                    }
+                    ],
+                    "margin": "lg"
+                }
+                ]
+            }
+            }
+        ]
+        }
+
 #==========教學==========#
 ##聊天教學
 def flexTeachChat():
