@@ -1112,7 +1112,7 @@ def templateAnnouncement(title = '', content = '', order_id = ''):
             "contents": [
             {
                 "type": "text",
-                "text": "訂單已出貨",
+                "text": str(title),
                 "margin": "md",
                 "size": "xl",
                 "weight": "bold",
@@ -1124,7 +1124,7 @@ def templateAnnouncement(title = '', content = '', order_id = ''):
             },
             {
                 "type": "text",
-                "text": "賣家已將您的商品：「」出貨，請注意查收！",
+                "text": str(content),
                 "margin": "lg",
                 "color": "#666666",
                 "size": "sm",
