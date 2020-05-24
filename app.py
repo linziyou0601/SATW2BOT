@@ -241,6 +241,12 @@ def handle_postback(event):
         if temp_statement:
             delete_temp_statement(data['id'][0])
             GET_EVENT["replyList"] = TextSendMessage(text="感謝您的回饋～"+GET_EVENT['postfix'])
+
+    ##常見問題回覆
+    if data['action'][0]=='faq':
+        response = faqKey(key)
+        temp_id = create_temp_statement(key, response, "", "")
+        GET_EVENT["replyList"] = FlexSendMessage(alt_text=response, contents=flexResponse(response, temp_id))
     
     ##傳送地點內容
     if data['action'][0]=='get_map':
@@ -394,6 +400,10 @@ def handle_message(event):
         GET_EVENT["replyList"] = FlexSendMessage(alt_text= "怎麼抽籤", contents=flexTeachLottery())
         GET_EVENT["replyLog"] = [GET_EVENT["lineMessage"], 0, 'flex']
 
+    #常見問題選單 [不限個人] 
+    elif key(GET_EVENT["lineMessage"])=="常見問題": 
+        GET_EVENT["replyList"] = FlexSendMessage(alt_text= "常見問題", contents=flexFAQ())
+        GET_EVENT["replyLog"] = [GET_EVENT["lineMessage"], 0, 'flex']
     #學說話教學選單 [不限個人] 
     elif key(GET_EVENT["lineMessage"])=="怎麼學說話": 
         GET_EVENT["replyList"] = FlexSendMessage(alt_text= "怎麼教我說話", contents=flexTeachLearn())

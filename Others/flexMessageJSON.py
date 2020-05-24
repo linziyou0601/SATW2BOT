@@ -23,6 +23,16 @@ def flexMainMenu(channelId):
             "height": "sm",
             "action": {
             "type": "message",
+            "label": "常見問題",
+            "text": "常見問題"
+            },
+            "margin": "md"
+        },
+        {
+            "type": "button",
+            "height": "sm",
+            "action": {
+            "type": "message",
             "label": "目前狀態",
             "text": "目前狀態"
             },
@@ -176,7 +186,7 @@ def flexStatusMenu(object):
         }
     ]
 
-
+##酷碰券
 def flexCoupon(code, discount):
     return {
         "type": "bubble",
@@ -241,6 +251,154 @@ def flexCoupon(code, discount):
             "footer": {
             "backgroundColor": "#149cb2"
             }
+        }
+    }
+
+##常見問題
+def flexFAQ():
+    return {
+        "type": "bubble",
+        "size": "mega",
+        "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+            {
+                "type": "text",
+                "text": "FAQ",
+                "color": "#1DB446",
+                "size": "sm",
+                "weight": "bold"
+            },
+            {
+                "type": "text",
+                "text": "常見問題",
+                "margin": "md",
+                "size": "xl",
+                "weight": "bold",
+                "wrap": True
+            },
+            {
+                "type": "separator",
+                "margin": "md"
+            },
+            {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                {
+                    "type": "button",
+                    "action": {
+                    "type": "postback",
+                    "label": "優惠券",
+                    "data": "action=faq&key=優惠券"
+                    },
+                    "color": "#377c91",
+                    "style": "primary",
+                    "margin": "md"
+                },
+                {
+                    "type": "button",
+                    "action": {
+                    "type": "postback",
+                    "label": "上架",
+                    "data": "action=faq&key=上架"
+                    },
+                    "color": "#377c91",
+                    "style": "primary",
+                    "margin": "md"
+                }
+                ],
+                "margin": "lg"
+            },
+            {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                {
+                    "type": "button",
+                    "action": {
+                    "type": "postback",
+                    "label": "購買",
+                    "data": "action=faq&key=購買"
+                    },
+                    "color": "#377c91",
+                    "style": "primary",
+                    "margin": "md"
+                },
+                {
+                    "type": "button",
+                    "action": {
+                    "type": "postback",
+                    "label": "商品",
+                    "data": "action=faq&key=商品"
+                    },
+                    "color": "#377c91",
+                    "style": "primary",
+                    "margin": "md"
+                }
+                ],
+                "margin": "lg"
+            },
+            {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                {
+                    "type": "button",
+                    "action": {
+                    "type": "postback",
+                    "label": "詐騙",
+                    "data": "action=faq&key=詐騙"
+                    },
+                    "color": "#377c91",
+                    "style": "primary",
+                    "margin": "md"
+                },
+                {
+                    "type": "button",
+                    "action": {
+                    "type": "postback",
+                    "label": "儲值",
+                    "data": "action=faq&key=儲值"
+                    },
+                    "color": "#377c91",
+                    "style": "primary",
+                    "margin": "md"
+                }
+                ],
+                "margin": "lg"
+            },
+            {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                {
+                    "type": "button",
+                    "action": {
+                    "type": "postback",
+                    "label": "付款",
+                    "data": "action=faq&key=付款"
+                    },
+                    "color": "#377c91",
+                    "style": "primary",
+                    "margin": "md"
+                },
+                {
+                    "type": "button",
+                    "action": {
+                    "type": "postback",
+                    "label": "提領",
+                    "data": "action=faq&key=提領"
+                    },
+                    "color": "#377c91",
+                    "style": "primary",
+                    "margin": "md"
+                }
+                ],
+                "margin": "lg"
+            }
+            ]
         }
     }
 
