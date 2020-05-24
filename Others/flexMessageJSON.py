@@ -1095,7 +1095,7 @@ def flexLearnConfirm(key = '', res = '', tempId = ''):
 #                   推播模版類                  #
 #==============================================#
 ##基本用途公告
-def templateAnnouncement(title = '', content = '', date = ''):
+def templateAnnouncement(title = '', content = '', order_id = ''):
     return {
         "type": "bubble",
         "direction": "ltr",
@@ -1112,7 +1112,7 @@ def templateAnnouncement(title = '', content = '', date = ''):
             "contents": [
             {
                 "type": "text",
-                "text": title,
+                "text": "訂單已出貨",
                 "margin": "md",
                 "size": "xl",
                 "weight": "bold",
@@ -1124,7 +1124,7 @@ def templateAnnouncement(title = '', content = '', date = ''):
             },
             {
                 "type": "text",
-                "text": content,
+                "text": "賣家已將您的商品：「」出貨，請注意查收！",
                 "margin": "lg",
                 "color": "#666666",
                 "size": "sm",
@@ -1136,13 +1136,13 @@ def templateAnnouncement(title = '', content = '', date = ''):
                 "margin": "lg"
             },
             {
-                "type": "text",
-                "text": date,
-                "margin": "md",
-                "color": "#999999",
-                "size": "sm",
-                "align": "end",
-                "wrap": True
+                "type": "button",
+                "style": "primary",
+                "action": {
+                "type": "uri",
+                "label": "查看訂單",
+                "uri": "https://satw2.linziyou.nctu.me/myOrders/"+str(order_id)
+                }
             }
             ]
         }

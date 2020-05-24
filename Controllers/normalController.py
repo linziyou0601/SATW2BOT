@@ -40,6 +40,13 @@ def get_channel(channelId):
     dataRow = selectDB(query, values)
     return dataRow[0] if len(dataRow) else None
 
+#查詢使用者byAccount
+def get_channel_by_account(account):
+    query = """SELECT * FROM line_user WHERE account = %s"""
+    values = (account,)
+    dataRow = selectDB(query, values)
+    return dataRow[0] if len(dataRow) else None
+
 #更新抽取時間
 def update_draw_time(channelId):
     query = """UPDATE line_user SET draw_coupon = %s where channel_id = %s"""
@@ -148,8 +155,8 @@ def pushing_template(title, content, channelId, template):
     record = ''
     if template == "announcement":
         try:
-            message = FlexSendMessage(alt_text=title, contents=templateAnnouncement(obj.get('title', ''), obj.get('content', ''), obj.get('date', '')))
-            record = json.dumps(templateAnnouncement(obj.get('title', ''), obj.get('content', ''), obj.get('date', '')))
+            message = FlexSendMessage(alt_text=title, contents=templateAnnouncement(obj.get('title', ''), obj.get('content', ''), obj.get('order_id', '')))
+            record = json.dumps(templateAnnouncement(obj.get('title', ''), obj.get('content', ''), obj.get('order_id', '')))
         except:
             return 'fail'
     
