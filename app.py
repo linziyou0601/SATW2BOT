@@ -110,7 +110,7 @@ def getChannelBind():
 
 #取得狀態 #-1查不到,0未綁,1已綁,2非個人Channel
 @app.route("/getChannelId", methods=['POST'])
-def getChannelBind():
+def getChannelId():
     data = json.loads(request.get_data())
     channel = get_channel_by_account(data['account'])
     return json.dumps({'channelId': "none" if channel==None else data['channel_id']})
