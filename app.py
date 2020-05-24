@@ -244,7 +244,7 @@ def handle_postback(event):
 
     ##常見問題回覆
     if data['action'][0]=='faq':
-        response = faqKey(key)
+        response = faqKey(data['key'][0])
         temp_id = create_temp_statement(key, response, "", "")
         GET_EVENT["replyList"] = FlexSendMessage(alt_text=response, contents=flexResponse(response, temp_id))
     
