@@ -560,6 +560,61 @@ def flexResponse(res, id):
         ]
         }
 
+#==========回應==========#
+def flexResponseOnlyFeedback(id):
+    return {
+        "type": "bubble",
+        "size": "mega",
+        "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+            {
+                "type": "text",
+                "text": "這則回應對你有幫助嗎？",
+                "margin": "lg",
+                "color": "#666666",
+                "size": "sm",
+                "align": "start",
+                "wrap": True
+            },
+            {
+                "type": "separator",
+                "margin": "lg"
+            },
+            {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                {
+                    "type": "button",
+                    "action": {
+                    "type": "postback",
+                    "label": "是",
+                    "data": "action=valid_response&id="+str(id)
+                    },
+                    "color": "#209799",
+                    "style": "primary",
+                    "margin": "md"
+                },
+                {
+                    "type": "button",
+                    "action": {
+                    "type": "postback",
+                    "label": "否",
+                    "data": "action=refuse_response&id="+str(id)
+                    },
+                    "color": "#ba5145",
+                    "style": "primary",
+                    "margin": "md"
+                }
+                ],
+                "margin": "lg"
+            }
+            ]
+        }
+    }
+
 #==========教學==========#
 ##聊天教學
 def flexTeachChat():

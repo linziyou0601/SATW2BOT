@@ -241,6 +241,9 @@ def chat_response(lineMessage, channelId):
 ##成功回話時增加權重或加入新詞
 def chat_valid_reply(lineMessage, reply):
     adjust_priority(1, lineMessage, reply)
+##回話失敗時減少權重
+def chat_invalid_reply(topic, lineMessage, reply):
+    adjust_priority(-3, topic, lineMessage, reply)
 ##齊推
 def chat_echo2(lineMessage, channelId):
     if not get_received(channelId, 3) or all(lineMessage!=msg['message'] or msg['type']!='text' for msg in get_received(channelId, 3)): return False

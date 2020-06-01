@@ -19,7 +19,7 @@ from Controllers.keyController import *
 #導入Services
 from Services.crawlerService import *
 from Services.lotteryService import *
-from Services.autoLearnService import *
+from Services.learnService import *
 from Services.geocodingService import *
 
 app = Flask(__name__)
@@ -233,13 +233,14 @@ def handle_postback(event):
     if data['action'][0]=='valid_response':
         temp_statement = get_temp_statement(data['id'][0])
         if temp_statement:
-            chat_valid_reply(temp_statement['keyword'], temp_statement['response'])
+            feedback_learn_model(temp_statement['keyword'], temp_statement['response'])
             GET_EVENT["replyList"] = TextSendMessage(text="感謝您的回饋～"+GET_EVENT['postfix'])
     ##詞條無幫助
     if data['action'][0]=='refuse_response':
         temp_statement = get_temp_statement(data['id'][0])
         if temp_statement:
             delete_temp_statement(data['id'][0])
+            feedback_abandon_model(temp_statement['keyword'], temp_statement['response'])
             GET_EVENT["replyList"] = TextSendMessage(text="感謝您的回饋～"+GET_EVENT['postfix'])
 
     ##常見問題回覆
@@ -465,12 +466,21 @@ def handle_message(event):
             GET_EVENT["replyList"] = ImageSendMessage(original_content_url=GET_EVENT["replyLog"][0], preview_image_url=GET_EVENT["replyLog"][0])
         else:
             GET_EVENT["replyList"] = TextSendMessage(text=GET_EVENT["replyLog"][0]+GET_EVENT["postfix"]) if GET_EVENT["replyLog"][0]!='我聽不懂啦！' or GET_EVENT["channelId"][0]=='U' else []
-            if(GET_EVENT["replyLog"][1]==2):
-                temp_id = create_temp_statement(GET_EVENT["lineMessage"], GET_EVENT["replyLog"][0], "", "")
-                GET_EVENT["replyList"] = FlexSendMessage(alt_text=GET_EVENT["replyLog"][0]+GET_EVENT["postfix"], contents=flexResponse(GET_EVENT["replyLog"][0]+GET_EVENT["postfix"], temp_id))
 
-    ##自動學習
-    auto_learn_model(GET_EVENT)
+    ## ==================== 訊息反饋建立區 ==================== ##
+    if GET_EVENT["replyLog"][1]:
+        temp_id = create_temp_statement(GET_EVENT["lineMessage"], GET_EVENT["replyLog"][0], "", "")
+        if GET_EVENT["replyLog"][2]=='image':
+            GET_EVENT["replyList"] = [
+                ImageSendMessage(original_content_url=GET_EVENT["replyLog"][0], preview_image_url=GET_EVENT["replyLog"][0]),
+                FlexSendMessage(alt_text="這則回應對你有幫助嗎？", contents=flexResponseOnlyFeedback(temp_id))
+            ]
+        else:
+            GET_EVENT["replyList"] = FlexSendMessage(
+                alt_text=(GET_EVENT["replyLog"][0]+GET_EVENT["postfix"])[0:400], 
+                contents=flexResponse(GET_EVENT["replyLog"][0]+GET_EVENT["postfix"],temp_id)
+            )
+
     ##發送
     send_reply(GET_EVENT, True)
 
