@@ -242,8 +242,8 @@ def chat_response(lineMessage, channelId):
 def chat_valid_reply(lineMessage, reply):
     adjust_priority(1, lineMessage, reply)
 ##回話失敗時減少權重
-def chat_invalid_reply(topic, lineMessage, reply):
-    adjust_priority(-3, topic, lineMessage, reply)
+def chat_invalid_reply(lineMessage, reply):
+    adjust_priority(-3, lineMessage, reply)
 ##齊推
 def chat_echo2(lineMessage, channelId):
     if not get_received(channelId, 3) or all(lineMessage!=msg['message'] or msg['type']!='text' for msg in get_received(channelId, 3)): return False
