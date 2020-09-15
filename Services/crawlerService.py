@@ -146,7 +146,7 @@ def getAQI(lat, lng, site):
 ## 抽酷碰券
 def draw_coupon():
     #=========================== 抽酷碰 [↓] ===========================#
-    with urllib.request.urlopen("https://satw2.linziyou.nctu.me/api/generateCoupon") as url:
+    with urllib.request.urlopen("https://satw2.linziyou.info/api/generateCoupon") as url:
         obj = json.loads(url.read().decode())
         return obj
     #=========================== 抽酷碰 [↑] ===========================#
@@ -154,7 +154,7 @@ def draw_coupon():
 ## 查詢商品
 def getProducts(key=""):
     #=========================== 取得資料 [↓] ===========================#
-    url = "https://satw2.linziyou.nctu.me/api/getProducts?key=" + str(key)
+    url = "https://satw2.linziyou.info/api/getProducts?key=" + str(key)
     url = quote(url, safe=string.printable)
     with urllib.request.urlopen(url) as url:
         obj = json.loads(url.read().decode())

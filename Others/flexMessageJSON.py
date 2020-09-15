@@ -44,7 +44,7 @@ def flexMainMenu(channelId):
             "action": {
             "type": "uri",
             "label": "去購物",
-            "uri": "https://satw2.linziyou.nctu.me/products"
+            "uri": "https://satw2.linziyou.info/products"
             },
             "margin": "md"
         }
@@ -67,7 +67,7 @@ def flexMainMenu(channelId):
                 "action": {
                 "type": "uri",
                 "label": "綁定INFINITY SHOP",
-                "uri": "https://satw2.linziyou.nctu.me/linebot/bind/"+channelId
+                "uri": "https://satw2.linziyou.info/linebot/bind/"+channelId
                 },
                 "margin": "md"
             },
@@ -88,7 +88,7 @@ def flexMainMenu(channelId):
         "direction": "ltr",
         "hero": {
             "type": "image",
-            "url": "https://satw2.linziyou.nctu.me/images/chatbot/cover/flexMessageCover_MENU.png",
+            "url": "https://satw2.linziyou.info/images/chatbot/cover/flexMessageCover_MENU.png",
             "size": "full",
             "aspectRatio": "20:13",
             "aspectMode": "cover"
@@ -1400,7 +1400,7 @@ def templateAnnouncement(title = '', content = '', order_id = ''):
         "direction": "ltr",
         "hero": {
             "type": "image",
-            "url": "https://satw2.linziyou.nctu.me/images/chatbot/cover/flexMessageCover_ANNOUNCE.png",
+            "url": "https://satw2.linziyou.info/images/chatbot/cover/flexMessageCover_ANNOUNCE.png",
             "size": "full",
             "aspectRatio": "20:13",
             "aspectMode": "cover"
@@ -1440,7 +1440,7 @@ def templateAnnouncement(title = '', content = '', order_id = ''):
                 "action": {
                 "type": "uri",
                 "label": "查看訂單",
-                "uri": "https://satw2.linziyou.nctu.me/myOrders/"+str(order_id)
+                "uri": "https://satw2.linziyou.info/myOrders/"+str(order_id)
                 }
             }
             ]
@@ -1488,7 +1488,7 @@ def flexTeachInfinityShop(channelId):
                 "action": {
                 "type": "uri",
                 "label": "綁定INFINITY SHOP",
-                "uri": "https://satw2.linziyou.nctu.me/linebot/bind/"+channelId
+                "uri": "https://satw2.linziyou.info/linebot/bind/"+channelId
                 },
                 "margin": "sm"
             },
@@ -2218,7 +2218,7 @@ def flexProducts(product_list, key):
                 "hero": {
                     "type": "image",
                     "size": "full",
-                    "url": "https://satw2.linziyou.nctu.me"+product['imgs'],
+                    "url": "https://satw2.linziyou.info"+product['imgs'],
                     "aspectMode": "cover",
                     "aspectRatio": "1:1"
                 },
@@ -2292,7 +2292,7 @@ def flexProducts(product_list, key):
                         "action": {
                         "type": "uri",
                         "label": "Go to Buy",
-                        "uri": "https://satw2.linziyou.nctu.me/products/"+str(int(product['id']))
+                        "uri": "https://satw2.linziyou.info/products/"+str(int(product['id']))
                         }
                     }
                     ]
@@ -2316,7 +2316,7 @@ def flexProducts(product_list, key):
                             "action": {
                             "type": "uri",
                             "label": "See More",
-                            "uri": "https://satw2.linziyou.nctu.me/products?key="+key
+                            "uri": "https://satw2.linziyou.info/products?key="+key
                             }
                         },
                         {
@@ -3043,7 +3043,7 @@ def flexDevinate(devinate):
             "direction": "ltr",
             "hero": {
                 "type": "image",
-                "url": "https://satw2.linziyou.nctu.me/images/chatbot/" + devinate['url'],
+                "url": "https://satw2.linziyou.info/images/chatbot/" + devinate['url'],
                 "size": "full",
                 "aspectMode": "cover",
                 "aspectRatio": "20:13"
@@ -3099,7 +3099,7 @@ def flexTarot(tarot_list):
                 "contents": [
                 {
                     "type": "image",
-                    "url": "https://satw2.linziyou.nctu.me/images/chatbot/tarot/"+tarot['url'],
+                    "url": "https://satw2.linziyou.info/images/chatbot/tarot/"+tarot['url'],
                     "size": "full",
                     "aspectMode": "cover",
                     "aspectRatio": "1:2",
@@ -3216,7 +3216,7 @@ def flexMeaningTarot(tarot):
                 "contents": [
                 {
                     "type": "image",
-                    "url": "https://satw2.linziyou.nctu.me/images/chatbot/tarot/"+tarot['url'],
+                    "url": "https://satw2.linziyou.info/images/chatbot/tarot/"+tarot['url'],
                     "size": "full",
                     "aspectMode": "cover",
                     "aspectRatio": "1:2",
